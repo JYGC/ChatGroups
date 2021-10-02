@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fastapi = "*"
+uvicorn = "*"
+fastapi-utils = "*"
+pydantic = {extras = ["dotenv", "email"], version = "*"}
+pony = "*"
+psycopg2-binary = "*"
+fastapi-jwt-auth = {extras = ["asymmetric"], version = "*"}
+aiofiles = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"
