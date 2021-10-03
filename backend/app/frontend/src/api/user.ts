@@ -45,4 +45,49 @@ export default class UserAPI {
         .then(data => successCallback(data))
         .catch(error => failCallback(error));
     }
+
+    public static refreshToken(
+        successCallback: (value: any) => any,
+        failCallback: (reason: any) => any
+    ) {
+        fetch(`${config.apiURL}/user/refresh`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-Token': this.getCookie('csrf_access_token'),
+            }
+        })
+        .then(response => response.json())
+        .then(data => successCallback(data))
+        .catch(error => failCallback(error));
+    }
+
+    public static delAll(
+        successCallback: (value: any) => any,
+        failCallback: (reason: any) => any
+    ) {
+        fetch(`${config.apiURL}/user/logout`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-Token': this.getCookie('csrf_access_token'),
+            }
+        })
+        .then(response => response.json())
+        .then(data => successCallback(data))
+        .catch(error => failCallback(error));
+    }
+
+    private static getCookie(name: string): string {
+        const nameLenPlus = (name.length + 1);
+        return document.cookie
+            .split(';')
+            .map(c => c.trim())
+            .filter(cookie => {
+                return cookie.substring(0, nameLenPlus) === `${name}=`;
+            })
+            .map(cookie => {
+                return decodeURIComponent(cookie.substring(nameLenPlus));
+            })[0] || null;
+    }
 }
