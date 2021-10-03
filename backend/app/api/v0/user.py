@@ -112,7 +112,7 @@ class RefreshCBV:
     def post(self, authorize: AuthJWT = Depends()):
         authorize.jwt_refresh_token_required()
         current_user_email = authorize.get_jwt_subject()
-        new_access_token = Authorize.create_access_token(
+        new_access_token = authorize.create_access_token(
             subject=current_user_email
         )
         authorize.set_access_cookies(new_access_token)

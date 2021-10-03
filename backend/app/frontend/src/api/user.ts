@@ -54,7 +54,7 @@ export default class UserAPI {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-Token': this.getCookie('csrf_access_token'),
+                'X-CSRF-Token': this.getCookie('csrf_refresh_token'),
             }
         })
         .then(response => response.json())
