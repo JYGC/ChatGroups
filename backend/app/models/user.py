@@ -16,11 +16,13 @@ class User(db.Entity):
     email = Required(EmailStr, unique=True)
     password = Required(str)
     phone_no = Required(str)
-    address = Optional("Address")
     dob = Required(date)
     banned = Required(bool, default=False, sql_default=False)
     deleted = Required(bool, default=False, sql_default=False)
     is_superuser = Required(bool, default=False, sql_default=False)
+    # Foreign keys
+    address = Optional("Address")
+    chatgroup_users = Set("ChatgroupUser")
     # Date created
     date_created = Required(datetime, default=datetime.now)
     # Histories
@@ -56,11 +58,12 @@ class UserHistory(db.Entity):
     email = Required(EmailStr)
     password = Required(str)
     phone_no = Required(str)
-    address = Optional("AddressHistory")
     dob = Required(date)
     banned = Required(bool)
     deleted = Required(bool)
     is_superuser = Required(bool)
+    # Foreign keys
+    address = Optional("AddressHistory")
     # History columns
     user = Required(User)
     action = Required(str)

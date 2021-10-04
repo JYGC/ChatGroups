@@ -23,7 +23,7 @@ def get_application():
     return _app
 
 
-from app.models import user, address
+from app.models import address, chatgroup, message, user
 init_db(db)
 app = get_application()
 

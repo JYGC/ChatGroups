@@ -15,6 +15,7 @@ class Address(db.Entity):
     suburb = Required(str)
     state = Required(AustralianStateEnum)
     postcode = Required(str)
+    # Foreign keys
     user = Optional("User")
     # Date created
     date_created = Required(datetime, default=datetime.now)
@@ -52,6 +53,7 @@ class AddressHistory(db.Entity):
     suburb = Required(str)
     state = Required(AustralianStateEnum)
     postcode = Required(str)
+    # Foreign keys
     user = Optional("UserHistory")
     # History columns
     address = Required(Address)

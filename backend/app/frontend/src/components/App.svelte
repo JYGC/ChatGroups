@@ -3,14 +3,14 @@
 	import userAPI from '../api/user';
 	import Nav from './Nav.svelte';
 	import PublicNav from './PublicNav.svelte';
-	import Blog from '../routes/Blog.svelte';
+	import Chatgroups from '../routes/Chatgroups.svelte';
 	import Home from '../routes/Home.svelte';
 	import Login from '../routes/Login.svelte';
 	import Register from '../routes/Register.svelte';
 
 	let page;
 
-	router('/blog', () => page = Blog);
+	router('/chatgroups', () => page = Chatgroups);
 	router('/home', () => page = Home);
 	router('/login', () => page = Login);
 	router('/register', () => page = Register);

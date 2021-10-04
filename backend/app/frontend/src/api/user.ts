@@ -62,7 +62,7 @@ export default class UserAPI {
         .catch(error => failCallback(error));
     }
 
-    public static delAll(
+    public static logout(
         successCallback: (value: any) => any,
         failCallback: (reason: any) => any
     ) {
