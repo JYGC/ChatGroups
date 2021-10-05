@@ -11,7 +11,7 @@ from app.models.address import Address
 
 class User(db.Entity):
     _table_ = (settings.POSTGRES_SCHEMA, "user")
-    uuid = PrimaryKey(UUID, default=uuid4)
+    id = PrimaryKey(UUID, default=uuid4)
     # values
     email = Required(EmailStr, unique=True)
     password = Required(str)
@@ -22,7 +22,7 @@ class User(db.Entity):
     is_superuser = Required(bool, default=False, sql_default=False)
     # Foreign keys
     address = Optional("Address")
-    chatgroup_users = Set("ChatgroupUser")
+    chat_users = Set("ChatUser")
     # Date created
     date_created = Required(datetime, default=datetime.now)
     # Histories
@@ -53,7 +53,7 @@ class User(db.Entity):
 
 class UserHistory(db.Entity):
     _table_ = (settings.POSTGRES_SCHEMA, "user_history")
-    id = PrimaryKey(int, auto=True)
+    id = PrimaryKey(UUID, default=uuid4)
     # values
     email = Required(EmailStr)
     password = Required(str)

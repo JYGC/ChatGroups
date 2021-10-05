@@ -27,6 +27,8 @@
   },
   "dependencies": {
     "@rollup/plugin-json": "^4.1.0",
-    "page": "^1.11.6"
+    "page": "^1.11.6",
+    "svelte-simple-datatables": "^0.1.25",
+    "svelte-simple-modal": "^1.0.3"
   }
 }

@@ -12,6 +12,7 @@
 
 <nav>
     <a href='/home'>Home</a>
-    <a href='/chatgroups'>Chat groups</a>
+    <a href='/chats/my'>My Chats</a>
+    <a href='/chats'>Chat groups</a>
     <a href='/' on:click={logout}>Logout</a>
 </nav>

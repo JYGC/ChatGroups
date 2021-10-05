@@ -23,7 +23,7 @@ def get_application():
     return _app
 
 
-from app.models import address, chatgroup, message, user
+from app.models import address, chat, message, user
 init_db(db)
 app = get_application()
 
@@ -39,6 +39,8 @@ def authjwt_exception_handler(request: Request, exc: AuthJWTException):
     )
 from app.api.v0.user import user_router
 app.include_router(user_router)
+from app.api.v0.chat import chat_router
+app.include_router(chat_router)
 from app.views import view_router
 app.include_router(view_router)
 app.mount('/', StaticFiles(directory="app/frontend/public/"), name="static")

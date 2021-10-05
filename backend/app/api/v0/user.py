@@ -7,7 +7,7 @@ from pony.orm import db_session
 from typing import Union
 from uuid import UUID
 
-from app.core.error import error_log
+from app.core.error import unknown_error_response
 from app.models.user import User
 from app.models.address import Address
 from app.schemas.user import UserDetailsSchema, UserLoginSchema
@@ -17,12 +17,12 @@ user_router = InferringRouter()
 
 
 class AuthCookiesSetterView:
-    def _set_auth_cookies(self, user_email, authorize: AuthJWT):
+    def _set_auth_cookies(self, user_uuid: str, authorize: AuthJWT):
         access_token = authorize.create_access_token(
-            subject=user_email
+            subject=user_uuid
         )
         refresh_token = authorize.create_refresh_token(
-            subject=user_email
+            subject=user_uuid
         )
         authorize.set_access_cookies(access_token)
         authorize.set_refresh_cookies(refresh_token)
@@ -56,16 +56,12 @@ class RegisterCBV(AuthCookiesSetterView):
                 new_user_history.address.user = new_user_history
                 new_user.flush()
                 # Set auth cookies
-                self._set_auth_cookies(new_user.email, authorize)
+                self._set_auth_cookies(str(new_user.id), authorize)
                 return { "success": "user created" }
         except HTTPException as http_exc:
             raise http_exc
-        except Exception as e:
-            error_log.exception(e, exc_info=True)
-            raise HTTPException(
-                status_code=404,
-                detail="Unknown request"
-            )
+        except Exception as exc:
+            unknown_error_response(HTTPException, exc)
 
 
 @cbv(user_router)
@@ -94,16 +90,12 @@ class LoginCBV(AuthCookiesSetterView):
                                 "administrator")
                     )
                 # Set auth cookies
-                self._set_auth_cookies(user.email, authorize)
+                self._set_auth_cookies(str(user.id), authorize)
                 return { "success": "logged in" }
         except HTTPException as http_exc:
             raise http_exc
         except Exception as e:
-            error_log.exception(e, exc_info=True)
-            raise HTTPException(
-                status_code=404,
-                detail="Unknown request"
-            )
+            unknown_error_response(HTTPException, exc)
 
 
 @cbv(user_router)
@@ -111,9 +103,9 @@ class RefreshCBV:
     @user_router.post("/v0/user/refresh")
     def post(self, authorize: AuthJWT = Depends()):
         authorize.jwt_refresh_token_required()
-        current_user_email = authorize.get_jwt_subject()
+        current_uuid = authorize.get_jwt_subject()
         new_access_token = authorize.create_access_token(
-            subject=current_user_email
+            subject=current_uuid
         )
         authorize.set_access_cookies(new_access_token)
         return {"msg":"The token has been refresh"}
@@ -124,7 +116,7 @@ class CheckAuthenticationCBV:
     @user_router.get("/v0/user/check_authentication")
     def get(self, authorize: AuthJWT = Depends()):
         authorize.jwt_required()
-        current_user_email = authorize.get_jwt_subject()
+        current_uuid = authorize.get_jwt_subject()
         return {"success": "Logged in user"}
 
 
