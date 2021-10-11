@@ -31,3 +31,26 @@ class GetAllMyChatCBV:
             raise http_exc
         except Exception as exc:
             unknown_error_response(HTTPException, exc)
+
+
+@cbv(chat_router)
+class CreateNew:
+    @chat_router.post(
+        "/v0/chat/create_new",
+        status_code=status.HTTP_201_CREATED
+    )
+    def post(
+        self,
+        new_chat: MyChatSchema,
+        authorize: AuthJWT = Depends()
+    ):
+        authorize.jwt_required()
+        try:
+            print(new_chat.name)
+            print(new_chat.description)
+            print(new_chat.number_of_participants)
+            print(new_chat.visible_to_all)
+        except HTTPException as http_exc:
+            raise http_exc
+        except Exception as exc:
+            unknown_error_response(HTTPException, exc)

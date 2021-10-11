@@ -4,14 +4,13 @@ from uuid import UUID
 
 
 class ChatSchema(BaseModel):
-    id: UUID
     name: str
     description: Optional[str]
     number_of_participants: int
 
 
 class MyChatSchema(ChatSchema):
-    pass
+    visible_to_all: bool
 
 
 class JoinedChatSchema(ChatSchema):

@@ -3,13 +3,13 @@
     import userAPI from '../api/user';
     
     let warning;
+
     let userLogin = {
         email: null,
         password: null
     };
-
     function login() {
-        if (userLogin.email !== '' && userLogin.password != '') {
+        if (userLogin.email && userLogin.password) {
             userAPI.login(userLogin, (data) => {
                 if ('detail' in data) {
                     warning = data['detail'];
