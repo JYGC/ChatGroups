@@ -3,7 +3,7 @@
     import Modal from 'svelte-simple-modal';
 
     import chatAPI from '../api/chat';
-    import ModelContent from '../components/ModelContent.svelte';
+    import ModalContent from '../components/ModalContent.svelte';
 
     const settings = {
         sortable: true,
@@ -26,7 +26,7 @@
 </script>
 
 <Modal>
-    <ModelContent />
+    <ModalContent />
 </Modal>
 <Datatable settings={settings} data={chatList}>
     <thead>

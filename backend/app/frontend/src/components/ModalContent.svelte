@@ -6,7 +6,7 @@
     const { open } = getContext('simple-modal');
 
     const showSurprise = () => {
-        open(ManageChat, { is_new: true });
+        open(ManageChat, { isNew: true });
     };
 </script>
 <div class="btn" on:click="{showSurprise}">Create new chat group</div>

@@ -1,16 +1,16 @@
-<script context="module" lang="ts">
-    export const is_new = false;
+<script lang="ts">
+    export let isNew = false;
 
     function submit() {
-        alert("Dorn");
-    }
+        alert("ewf");
+    };
 </script>
 
-<input type="text" name="name" placeholder="Chat group name" />
-<input type="text" name="description" placeholder="Description" />
-<input type="checkbox" name="visible_to_all" />
+<input type="text" name="name" placeholder="Chat group name" /><br />
+<input type="text" name="description" placeholder="Description" /><br />
+<input type="checkbox" name="visible_to_all" /><br />
 <div class="btn" on:click={submit}>
-    {#if is_new}
+    {#if isNew}
     Create new chat group
     {:else}
     Save changes
