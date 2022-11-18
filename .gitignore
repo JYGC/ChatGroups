@@ -2,5 +2,6 @@ backend/app/__pycache__
 backend/app/core/__pycache__
 backend/app/frontend/node_modules
 backend/app/frontend/public/*
+backend/bin
 !backend/app/frontend/public/index.html
 !backend/app/frontend/public/favicon.png
